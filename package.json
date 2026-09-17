@@ -1,0 +1,13 @@
+{
+  "name": "badeba-learning-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bot educativo de Telegram conectado al catálogo local de BADEBA.",
+  "scripts": {
+    "bot": "node telegram-bot.js",
+    "bot:check": "node --check telegram-bot.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

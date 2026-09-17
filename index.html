@@ -1,0 +1,1055 @@
+<!doctype html>
+<html lang="es" class="bg-[#050705]">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050705">
+  <meta name="description" content="BADEBA SUPPLIES — Skull Collection y presentaciones seleccionadas en Bahía de Banderas.">
+  <title>BADEBA SUPPLIES — Skull Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { badeba: '#7CFC00' },
+          fontFamily: { display: ['Syne', 'sans-serif'], body: ['Inter', 'sans-serif'] }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root { --acid: #7cfc00; --black: #050705; --mx: 50%; --my: 50%; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: auto; }
+    body { margin: 0; color: #fff; background: transparent; font-family: Inter, sans-serif; overflow-x: hidden; }
+    main, footer { position: relative; z-index: 1; }
+    ::selection { color: #050705; background: var(--acid); }
+
+    .noise {
+      position: fixed; inset: 0; z-index: 80; pointer-events: none; opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .video-stage { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: #050705; pointer-events: none; }
+    .video-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); filter: saturate(.92) contrast(1.08) brightness(.62); transition: opacity .9s linear; will-change: opacity, transform; }
+    .video-stage video.is-active { opacity: 1; }
+    .video-stage::after {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 43%, transparent 0 28%, rgba(5,7,5,.16) 66%, rgba(5,7,5,.48) 120%);
+    }
+
+    /* SCROLL BACKGROUND PREVIEW — bloque reversible */
+    .scroll-scene-backgrounds { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .scroll-scene-background {
+      position: absolute; inset: -3%; width: 106%; height: 106%; object-fit: cover; opacity: 0;
+      transition: opacity 1.15s ease, transform 1.8s cubic-bezier(.2,.7,.2,1), filter 1.15s ease;
+      will-change: opacity, transform; transform: scale(1.07);
+    }
+    .scroll-scene-background.is-active { opacity: .94; transform: scale(1.015); }
+    .scroll-scene-background[data-scene="productos"] { object-position: 50% 56%; filter: saturate(.88) contrast(1.1) brightness(.54); }
+    .scroll-scene-background[data-scene="nosotros"] { object-position: 22% 48%; filter: saturate(.68) contrast(1.18) brightness(.46); }
+    .scroll-scene-background[data-scene="contacto"] { object-position: 78% 44%; filter: saturate(.78) contrast(1.16) brightness(.42); }
+    .scroll-scene-backgrounds::after {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 45%, transparent 0 24%, rgba(5,7,5,.22) 64%, rgba(5,7,5,.62) 115%);
+      opacity: 0; transition: opacity 1.15s ease;
+    }
+    .scroll-scene-backgrounds.has-active::after { opacity: 1; }
+
+    .site-header { transition: background .4s ease, border-color .4s ease, backdrop-filter .4s ease; }
+    .site-header.scrolled { background: rgba(5,7,5,.72); border-color: rgba(255,255,255,.1); backdrop-filter: blur(20px); }
+    .header-layout { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; width: 100%; }
+    .header-brand { grid-column: 1; grid-row: 1; justify-self: start; display: flex; align-items: center; justify-content: flex-start; background: transparent; }
+    .header-nav { grid-column: 2; grid-row: 1; justify-self: center; }
+    .header-cta { grid-column: 3; grid-row: 1; justify-self: end; }
+    .header-brand img { width: auto; height: clamp(75px, 5.5vw, 84px); max-width: min(390px, 34vw); object-fit: contain; object-position: center; background: transparent; }
+    .brand-image {
+      mix-blend-mode: screen; transform: translateY(8px); image-rendering: auto;
+      animation: logoNeonPulse 3.6s ease-in-out infinite;
+      will-change: filter;
+    }
+    @keyframes logoNeonPulse {
+      0%, 100% { filter: drop-shadow(0 0 2px rgba(124,252,0,.18)) drop-shadow(0 0 8px rgba(124,252,0,.08)); }
+      50% { filter: drop-shadow(0 0 5px rgba(124,252,0,.62)) drop-shadow(0 0 20px rgba(124,252,0,.26)); }
+    }
+
+    .glass {
+      background: linear-gradient(145deg, rgba(12,15,12,.76), rgba(0,0,0,.56));
+      border: 1px solid rgba(255,255,255,.11);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.055), 0 24px 80px rgba(0,0,0,.28);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .product-card { position: relative; overflow: hidden; transform-style: preserve-3d; transition: border-color .35s ease, box-shadow .35s ease; }
+    .product-card::before {
+      content: ""; position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .35s ease;
+      background: radial-gradient(420px circle at var(--card-x, 50%) var(--card-y, 50%), rgba(124,252,0,.13), transparent 44%);
+    }
+    .product-card:hover { border-color: rgba(124,252,0,.38); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 28px 90px rgba(0,0,0,.45), 0 0 36px rgba(124,252,0,.055); }
+    .product-card:hover::before { opacity: 1; }
+    .card-index { font: 700 clamp(3rem, 7vw, 6rem)/1 Syne, sans-serif; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.14); }
+
+    .cursor-light {
+      position: fixed; z-index: 70; width: 340px; height: 340px; left: 0; top: 0; border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle, rgba(124,252,0,.12), rgba(124,252,0,.035) 30%, transparent 70%);
+      transform: translate3d(calc(var(--cx, -400px) - 50%), calc(var(--cy, -400px) - 50%), 0);
+      mix-blend-mode: screen; filter: blur(5px); opacity: .75;
+    }
+
+    .magnetic { position: relative; isolation: isolate; transition: box-shadow .35s ease, color .35s ease, border-color .35s ease; }
+    .magnetic::before { content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: inherit; opacity: 0; filter: blur(15px); background: rgba(124,252,0,.38); transition: opacity .35s ease; }
+    .magnetic:hover { color: #050705; border-color: var(--acid); box-shadow: inset 0 0 0 40px var(--acid); }
+    .magnetic:hover::before { opacity: 1; }
+
+    .icon-line { width: 46px; height: 46px; color: var(--acid); }
+    .section-kicker::before { content: ""; display: inline-block; width: 28px; height: 1px; margin-right: 12px; vertical-align: middle; background: var(--acid); }
+    .marquee { overflow: hidden; border-block: 1px solid rgba(255,255,255,.09); }
+    .marquee-track { display: flex; width: max-content; animation: marquee 26s linear infinite; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    .filter-button {
+      border: 1px solid rgba(255,255,255,.13); background: rgba(0,0,0,.3); color: rgba(255,255,255,.55);
+      transition: color .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
+    }
+    .filter-button:hover, .filter-button.is-active {
+      color: #050705; border-color: var(--acid); background: var(--acid); box-shadow: 0 0 24px rgba(124,252,0,.17);
+    }
+    .catalog-grid { perspective: 1100px; align-items: stretch; padding-top: 24px; }
+    .catalog-card {
+      --pop-rotate: -2deg;
+      min-height: 500px;
+      isolation: isolate;
+      overflow: hidden;
+      background: transparent;
+      border: 1px solid rgba(124,252,0,.68);
+      box-shadow: 0 22px 70px rgba(0,0,0,.2), inset 0 0 0 1px rgba(124,252,0,.025);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .catalog-card:nth-child(3n + 2) { --pop-rotate: 1.6deg; }
+    .catalog-card:nth-child(3n) { --pop-rotate: -1deg; }
+    .catalog-card::after {
+      content: ""; position: absolute; z-index: 3; top: -1px; right: 26px; width: 38px; height: 3px;
+      background: var(--acid); box-shadow: 0 0 16px rgba(124,252,0,.65); pointer-events: none;
+    }
+    .catalog-card[hidden] { display: none !important; }
+    .product-visual {
+      position: relative; display: grid; place-items: center; min-height: 270px; margin: 0; padding: 42px 20px 16px; overflow: hidden;
+      border-bottom: 1px solid rgba(124,252,0,.22); background: transparent;
+    }
+    .product-visual::before { content: ""; position: absolute; width: 55%; height: 55%; border: 1px solid rgba(124,252,0,.18); border-radius: 50%; filter: blur(.2px); }
+    .product-visual.has-image {
+      min-height: 280px; height: 280px;
+      background: linear-gradient(145deg, #ffffff 0%, #f3f4f0 100%);
+      box-shadow: inset 0 -18px 34px rgba(5,7,5,.055);
+    }
+    .product-visual.has-image::before { display: none; }
+    .product-visual.has-image > span {
+      top: 18px; color: var(--acid); background: transparent; border: 0; border-radius: 0; padding: 0;
+      text-shadow: 0 0 14px rgba(124,252,0,.3); backdrop-filter: none;
+    }
+    .product-visual img {
+      position: relative; z-index: 1; display: block; width: auto; height: auto; max-width: var(--product-width, 78%); max-height: var(--product-height, 218px); object-fit: contain; opacity: 1;
+      transform: translateY(0) rotate(var(--pop-rotate));
+      filter: drop-shadow(0 24px 18px rgba(0,0,0,.55)) drop-shadow(0 0 18px rgba(124,252,0,.08));
+      transition: opacity .35s ease, transform .55s cubic-bezier(.2,.75,.2,1), filter .45s ease;
+      will-change: transform;
+    }
+    .product-visual.fit-wide { --product-width: 92%; --product-height: 190px; }
+    .product-visual.fit-bag { --product-width: 76%; --product-height: 224px; }
+    .product-visual.fit-jar { --product-width: 68%; --product-height: 226px; }
+    .product-visual.fit-group { --product-width: 84%; --product-height: 208px; }
+    .product-visual.fit-tube { --product-width: 48%; --product-height: 228px; }
+    .product-visual.fit-tube-wide { --product-width: 62%; --product-height: 228px; }
+    .catalog-card:hover .product-visual img {
+      transform: translateY(-7px) scale(1.025) rotate(calc(var(--pop-rotate) * -.65));
+      filter: drop-shadow(0 34px 23px rgba(0,0,0,.62)) drop-shadow(0 0 24px rgba(124,252,0,.15));
+    }
+    .catalog-copy { background: transparent; }
+    .product-shape { position: relative; width: 42%; height: 34%; border: 1px solid rgba(255,255,255,.55); border-radius: 8px; box-shadow: 0 18px 35px rgba(0,0,0,.45), 0 0 25px rgba(124,252,0,.12); transform: perspective(500px) rotateX(58deg) rotateZ(-8deg); }
+    .product-shape::before, .product-shape::after { content: ""; position: absolute; inset: 18% 8%; border-block: 1px solid rgba(124,252,0,.65); }
+    .product-shape.round { width: 31%; height: 62%; border-radius: 50% 50% 18px 18px; transform: rotate(8deg); }
+    .product-shape.tall { width: 27%; height: 68%; border-radius: 50px 50px 14px 14px; transform: rotate(-7deg); }
+    .product-shape.bag { width: 36%; height: 62%; border-radius: 12px 12px 28px 28px; transform: rotate(4deg); }
+    .product-shape.grid { width: 48%; height: 52%; background: repeating-linear-gradient(0deg, transparent 0 9px, rgba(124,252,0,.18) 10px 11px), repeating-linear-gradient(90deg, transparent 0 9px, rgba(124,252,0,.18) 10px 11px); transform: rotate(-5deg); }
+    dialog { color: #fff; }
+    dialog::backdrop { background: rgba(0,0,0,.7); backdrop-filter: blur(8px); }
+    .product-dialog { width: min(980px, calc(100vw - 32px)); max-height: min(820px, calc(100vh - 32px)); padding: 0; overflow: auto; border: 1px solid rgba(124,252,0,.4); border-radius: 30px; background: rgba(5,7,5,.97); box-shadow: 0 35px 140px rgba(0,0,0,.72), 0 0 46px rgba(124,252,0,.08); }
+    .product-dialog-grid { display: grid; grid-template-columns: minmax(280px, .88fr) minmax(0, 1.12fr); }
+    .product-detail-media { min-height: 480px; background: linear-gradient(145deg, #fff, #eff1ec); }
+    .product-detail-media img { width: 100%; height: 100%; max-height: 560px; object-fit: contain; }
+    .detail-action { color: var(--acid); border: 1px solid rgba(124,252,0,.35); background: transparent; transition: color .25s ease, border-color .25s ease, background .25s ease; }
+    .detail-action:hover { color: #050705; border-color: var(--acid); background: var(--acid); }
+    .whatsapp-action { display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: #050705; border: 1px solid var(--acid); background: var(--acid); box-shadow: 0 0 20px rgba(124,252,0,.1); transition: color .25s ease, background .25s ease, box-shadow .25s ease, transform .25s ease; }
+    .whatsapp-action:hover { color: var(--acid); background: rgba(5,7,5,.72); box-shadow: 0 0 28px rgba(124,252,0,.2); transform: translateY(-1px); }
+    .detail-fact { border-top: 1px solid rgba(255,255,255,.1); padding-top: 12px; color: rgba(255,255,255,.68); }
+    .whatsapp-fab { position: fixed; left: 22px; bottom: 22px; z-index: 62; height: 62px; padding: 6px 18px 6px 7px; display: flex; align-items: center; gap: 11px; border: 1px solid rgba(124,252,0,.65); border-radius: 999px; color: #fff; background: rgba(5,7,5,.92); box-shadow: 0 0 0 7px rgba(124,252,0,.06), 0 14px 45px rgba(0,0,0,.5); transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+    .whatsapp-fab:hover { border-color: var(--acid); box-shadow: 0 0 0 7px rgba(124,252,0,.1), 0 14px 45px rgba(0,0,0,.5), 0 0 30px rgba(124,252,0,.16); transform: translateY(-2px); }
+    .whatsapp-fab-icon { display: grid; width: 48px; height: 48px; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #050705; background: var(--acid); }
+    .whatsapp-fab-label { font: 700 10px/1 Syne, sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+    .cart-count { display: grid; min-width: 22px; height: 22px; padding-inline: 6px; place-items: center; border-radius: 999px; color: #050705; background: var(--acid); font: 700 10px/1 Inter, sans-serif; box-shadow: 0 0 16px rgba(124,252,0,.25); }
+    .cart-overlay { position: fixed; inset: 0; z-index: 88; visibility: hidden; opacity: 0; background: rgba(0,0,0,.66); backdrop-filter: blur(7px); transition: opacity .32s ease, visibility .32s ease; }
+    .cart-overlay.is-open { visibility: visible; opacity: 1; }
+    .cart-drawer { position: fixed; z-index: 89; top: 0; right: 0; width: min(470px, 100vw); height: 100dvh; display: flex; flex-direction: column; border-left: 1px solid rgba(124,252,0,.28); background: rgba(5,7,5,.97); box-shadow: -35px 0 100px rgba(0,0,0,.55); transform: translateX(105%); transition: transform .42s cubic-bezier(.22,.8,.24,1); }
+    .cart-drawer.is-open { transform: translateX(0); }
+    .cart-items { overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(124,252,0,.35) transparent; }
+    .cart-item { display: grid; grid-template-columns: 72px minmax(0,1fr) auto; gap: 14px; align-items: center; padding-block: 15px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .cart-item img { width: 72px; height: 72px; border-radius: 15px; object-fit: contain; background: #fff; }
+    .cart-quantity { display: inline-flex; align-items: center; overflow: hidden; border: 1px solid rgba(255,255,255,.13); border-radius: 999px; }
+    .cart-quantity button { width: 31px; height: 31px; color: rgba(255,255,255,.62); transition: color .2s ease, background .2s ease; }
+    .cart-quantity button:hover { color: #050705; background: var(--acid); }
+    .cart-addon { border: 1px solid rgba(124,252,0,.28); background: linear-gradient(135deg, rgba(124,252,0,.075), rgba(255,255,255,.025)); }
+    .cart-addon img { width: 58px; height: 58px; flex: 0 0 auto; border-radius: 13px; object-fit: contain; background: #fff; }
+    .checkout-dialog { width: min(620px, calc(100vw - 28px)); max-height: calc(100dvh - 28px); padding: 0; overflow: auto; border: 1px solid rgba(124,252,0,.38); border-radius: 28px; background: rgba(5,7,5,.98); box-shadow: 0 35px 120px rgba(0,0,0,.7); }
+    .shop-toast { position: fixed; z-index: 96; left: 50%; bottom: 26px; max-width: calc(100vw - 32px); padding: 12px 18px; border: 1px solid rgba(124,252,0,.38); border-radius: 999px; color: #050705; background: var(--acid); box-shadow: 0 18px 50px rgba(0,0,0,.45); font-size: 12px; font-weight: 600; opacity: 0; pointer-events: none; transform: translate(-50%, 18px); transition: opacity .25s ease, transform .25s ease; }
+    .shop-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+    .chat-shell { position: fixed; right: 22px; bottom: 22px; z-index: 62; }
+    .chat-toggle { height: 62px; padding: 6px 17px 6px 6px; gap: 10px; border: 1px solid rgba(124,252,0,.62); border-radius: 999px; color: #fff; background: rgba(5,7,5,.92); box-shadow: 0 0 0 7px rgba(124,252,0,.06), 0 14px 45px rgba(0,0,0,.5); transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+    .chat-toggle:hover { border-color: var(--acid); box-shadow: 0 0 0 7px rgba(124,252,0,.1), 0 14px 45px rgba(0,0,0,.5), 0 0 30px rgba(124,252,0,.16); transform: translateY(-2px); }
+    .chat-mark { display: grid; place-items: center; width: 48px; height: 48px; flex: 0 0 auto; border-radius: 50%; color: #050705; background: var(--acid); }
+    .chat-label { font: 700 10px/1 Syne, sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+    .chat-panel { position: absolute; right: 0; bottom: 78px; width: min(380px, calc(100vw - 32px)); height: min(560px, calc(100vh - 120px)); display: none; overflow: hidden; border: 1px solid rgba(255,255,255,.14); border-radius: 28px; background: rgba(5,7,5,.94); box-shadow: 0 35px 100px rgba(0,0,0,.65); backdrop-filter: blur(24px); }
+    .chat-panel.is-open { display: flex; flex-direction: column; animation: chatIn .3s ease both; }
+    @keyframes chatIn { from { opacity: 0; transform: translateY(14px) scale(.97); } }
+    .chat-messages { scrollbar-width: thin; scrollbar-color: rgba(124,252,0,.35) transparent; }
+    .message { max-width: 88%; padding: 11px 14px; border-radius: 17px; font-size: 13px; line-height: 1.55; }
+    .message.bot { align-self: flex-start; color: rgba(255,255,255,.75); background: rgba(255,255,255,.075); border-bottom-left-radius: 5px; }
+    .message.user { align-self: flex-end; color: #050705; background: var(--acid); border-bottom-right-radius: 5px; }
+    .quick-reply { border: 1px solid rgba(124,252,0,.28); color: rgba(255,255,255,.66); transition: .2s ease; }
+    .quick-reply:hover { color: #050705; background: var(--acid); }
+
+    @media (max-width: 768px) {
+      .cursor-light { display: none; }
+      .video-stage video { width: 180%; max-width: none; margin-left: -40%; }
+      .header-layout { grid-template-columns: auto minmax(0, 1fr) auto; }
+      .brand-image { width: 205px !important; max-width: min(205px, calc(100vw - 136px)); height: auto; transform: translateY(7px); }
+      .header-cta { display: flex; width: auto; height: 44px; align-items: center; padding: 0 10px !important; }
+      .header-cta-label { display: none; }
+      .whatsapp-fab { left: 12px; bottom: 12px; width: 56px; height: 56px; padding: 4px; }
+      .whatsapp-fab-icon { width: 46px; height: 46px; }
+      .whatsapp-fab-label { display: none; }
+      .chat-shell { right: 12px; bottom: 12px; }
+      .chat-toggle { width: 56px; height: 56px; padding: 4px; }
+      .chat-mark { width: 46px; height: 46px; }
+      .chat-label { display: none; }
+      .product-dialog-grid { grid-template-columns: 1fr; }
+      .product-detail-media { min-height: 300px; max-height: 360px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+      .cursor-light { display: none; }
+      .brand-image { animation: none; filter: drop-shadow(0 0 5px rgba(124,252,0,.38)); }
+      .scroll-scene-background { transition: none; transform: none; }
+    }
+  </style>
+</head>
+<body class="font-body antialiased">
+  <div class="noise" aria-hidden="true"></div>
+  <div class="cursor-light" aria-hidden="true"></div>
+
+  <div class="video-stage" aria-hidden="true">
+    <video class="loop-layer is-active" autoplay muted loop playsinline preload="auto" poster="assets/images/indoor-hemp.png">
+      <source src="assets/video/badeba-fondo-8s.mp4" type="video/mp4">
+    </video>
+    <video class="loop-layer" muted loop playsinline preload="auto">
+      <source src="assets/video/badeba-fondo-8s.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- SCROLL BACKGROUND PREVIEW — sustituir cada src cuando existan imágenes definitivas -->
+  <div class="scroll-scene-backgrounds" aria-hidden="true">
+    <img class="scroll-scene-background" data-scene="productos" src="assets/images/indoor-hemp.png" alt="">
+    <img class="scroll-scene-background" data-scene="nosotros" src="assets/images/indoor-hemp.png" alt="">
+    <img class="scroll-scene-background" data-scene="contacto" src="assets/images/indoor-hemp.png" alt="">
+  </div>
+
+  <header class="site-header fixed inset-x-0 top-0 z-50 border-b border-transparent">
+    <div class="header-layout mx-auto h-28 max-w-[1500px] px-5 md:px-10">
+      <a href="#inicio" class="header-brand relative z-10" aria-label="BADEBA SUPPLIES, inicio">
+        <img src="assets/brand/badeba-supplies/badeba-logo.png" alt="BADEBA SUPPLIES" class="brand-image w-[230px] md:w-[280px]">
+      </a>
+      <nav class="header-nav hidden items-center gap-9 text-[11px] font-medium uppercase tracking-[.2em] text-white/65 md:flex" aria-label="Navegación principal">
+        <a href="#productos" class="transition hover:text-badeba">Catálogo</a>
+        <a href="#nosotros" class="transition hover:text-badeba">Nosotros</a>
+        <a href="#contacto" class="transition hover:text-badeba">Contacto</a>
+      </nav>
+      <button id="cart-open" type="button" class="header-cta magnetic flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-[10px] font-semibold uppercase tracking-[.18em] md:px-6" aria-label="Abrir carrito" aria-controls="cart-drawer" aria-expanded="false">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 2-1.6L21 7H6"/><circle cx="10" cy="20" r="1.2"/><circle cx="18" cy="20" r="1.2"/></svg>
+        <span class="header-cta-label">Carrito</span>
+        <span id="cart-count" class="cart-count" aria-label="0 productos">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section id="inicio" class="relative flex min-h-screen items-end px-5 pb-16 pt-32 md:px-10 md:pb-20">
+      <div class="mx-auto grid w-full max-w-[1500px] items-end gap-10 lg:grid-cols-[1fr_360px]">
+        <div>
+          <p class="hero-reveal section-kicker mb-5 text-[11px] font-semibold uppercase tracking-[.28em] text-badeba">Skull Collection · Bahía de Banderas</p>
+          <h1 class="hero-reveal max-w-5xl font-display text-[clamp(3.5rem,9vw,9.5rem)] font-semibold uppercase leading-[.82] tracking-[-.055em]">
+            Encuentra tu<br><span class="text-white/38">próximo favorito.</span>
+          </h1>
+        </div>
+        <div class="hero-reveal glass rounded-[28px] p-6 md:p-7">
+          <div class="mb-8 flex items-center justify-between text-[10px] uppercase tracking-[.18em] text-white/45">
+            <span>BADEBA / 2026</span><span class="h-2 w-2 rounded-full bg-badeba shadow-[0_0_16px_#7CFC00]"></span>
+          </div>
+          <p class="text-base font-light leading-relaxed text-white/72">Explora presentaciones seleccionadas, conoce cada producto y elige el que mejor va contigo.</p>
+          <a href="#productos" class="mt-7 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[.16em] text-badeba">Ver colección <span aria-hidden="true">↘</span></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee bg-transparent py-4 backdrop-blur-md">
+      <div class="marquee-track font-display text-xs uppercase tracking-[.3em] text-white/38">
+        <span class="px-8">Valle de Banderas · San José del Valle · San Juan de Abajo · San Vicente · El Porvenir · Bucerías · Mezcales · Mezcalitos · Valle Dorado · Las Jarretaderas · San Clemente de Lima · La Cruz de Huanacaxtle · Nuevo Nayarit · Tondoroque · Sayulita · San Francisco · Lo de Marcos · San Ignacio · Higuera Blanca · Punta de Mita · Corral del Risco · El Colomo · Fortuna de Vallejo · Santa Rosa Tapachula · Las Lomas · Litibú · Emiliano Zapata · El Anclote · </span>
+        <span class="px-8" aria-hidden="true">Valle de Banderas · San José del Valle · San Juan de Abajo · San Vicente · El Porvenir · Bucerías · Mezcales · Mezcalitos · Valle Dorado · Las Jarretaderas · San Clemente de Lima · La Cruz de Huanacaxtle · Nuevo Nayarit · Tondoroque · Sayulita · San Francisco · Lo de Marcos · San Ignacio · Higuera Blanca · Punta de Mita · Corral del Risco · El Colomo · Fortuna de Vallejo · Santa Rosa Tapachula · Las Lomas · Litibú · Emiliano Zapata · El Anclote · </span>
+      </div>
+    </div>
+
+    <section id="productos" class="relative bg-transparent px-5 py-28 md:px-10 md:py-40">
+      <div class="mx-auto max-w-[1500px]">
+        <div class="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div>
+            <p class="section-kicker mb-5 text-[11px] font-semibold uppercase tracking-[.25em] text-badeba">Catálogo BADEBA</p>
+            <h2 class="font-display text-[clamp(2.8rem,6vw,6rem)] font-semibold uppercase leading-[.9] tracking-[.025em]">Skull <span class="text-white/55">Collection.</span></h2>
+          </div>
+          <p class="max-w-md text-sm font-light leading-7 text-white/58">Explora la colección, compara presentaciones y abre la ficha de cada artículo.</p>
+        </div>
+
+        <p id="catalog-status" class="sr-only" aria-live="polite">Mostrando 9 productos de Skull Collection</p>
+        <div id="catalog-grid" class="catalog-grid grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 xl:grid-cols-4"></div>
+
+        <p class="mt-6 text-xs leading-6 text-white/35">Fotografías originales del catálogo BADEBA SUPPLIES. Puedes practicar el carrito sin cobros reales; la disponibilidad y los precios se mostrarán al conectar un inventario.</p>
+      </div>
+    </section>
+
+    <section id="nosotros" class="relative overflow-hidden bg-transparent px-5 py-28 md:px-10 md:py-40">
+      <div class="absolute inset-0 opacity-30" style="background: radial-gradient(circle at 75% 50%, rgba(124,252,0,.15), transparent 34%)"></div>
+      <div class="mx-auto grid max-w-[1500px] gap-16 lg:grid-cols-2 lg:items-center">
+        <div class="reveal-copy">
+          <p class="section-kicker mb-6 text-[11px] font-semibold uppercase tracking-[.25em] text-badeba">La experiencia BADEBA</p>
+          <h2 class="font-display text-[clamp(3rem,7vw,7rem)] font-semibold uppercase leading-[.88] tracking-[-.05em]">Menos vueltas.<br><span class="text-white/30">Más estilo.</span></h2>
+        </div>
+        <div class="reveal-copy grid gap-8 border-l border-white/10 pl-7 md:pl-12">
+          <p class="text-lg font-light leading-8 text-white/65">BADEBA SUPPLIES reúne una colección visual, directa y fácil de explorar para que encuentres tu presentación favorita.</p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="border-t border-badeba/40 pt-4"><strong class="font-display text-3xl">09</strong><span class="mt-2 block text-[10px] uppercase tracking-[.2em] text-white/42">Presentaciones</span></div>
+            <div class="border-t border-badeba/40 pt-4"><strong class="font-display text-3xl">LOCAL</strong><span class="mt-2 block text-[10px] uppercase tracking-[.2em] text-white/42">Bahía de Banderas</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="relative bg-transparent px-5 py-28 md:px-10 md:py-40">
+      <div class="glass mx-auto max-w-[1500px] overflow-hidden rounded-[36px] px-6 py-16 text-center md:px-16 md:py-24">
+        <p class="mb-6 text-[11px] font-semibold uppercase tracking-[.28em] text-badeba">Skull Collection</p>
+        <h2 class="mx-auto max-w-5xl font-display text-[clamp(2.8rem,7vw,7.2rem)] font-semibold uppercase leading-[.88] tracking-[-.05em]">Tu próxima elección está aquí.</h2>
+        <a href="#productos" class="magnetic mt-10 inline-flex rounded-full border border-badeba/55 px-9 py-5 text-xs font-semibold uppercase tracking-[.2em]">Explorar productos <span class="ml-4">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 bg-transparent px-5 py-10 backdrop-blur-md md:px-10">
+    <div class="mx-auto flex max-w-[1500px] flex-col gap-8 md:flex-row md:items-center md:justify-between">
+      <div class="flex items-center gap-4"><img src="assets/brand/badeba-supplies/cannabis-skull.jpeg" alt="Cannabis Skull" class="h-12 w-12 rounded-full object-cover opacity-80"><span class="text-[10px] uppercase tracking-[.2em] text-white/38">BADEBA SUPPLIES © 2026</span></div>
+      <div class="flex items-center gap-5 text-white/60">
+        <a href="#" aria-label="Instagram" class="transition hover:text-badeba"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="TikTok" class="transition hover:text-badeba"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 4v11.5a4.5 4.5 0 1 1-4-4.47M15 4c.6 3 2.2 4.6 5 5"/></svg></a>
+        <a href="#" aria-label="YouTube" class="transition hover:text-badeba"><svg width="22" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="m10 9 5 3-5 3Z"/></svg></a>
+      </div>
+      <a href="https://www.badebasupplies.com" class="text-[10px] uppercase tracking-[.2em] text-white/42 transition hover:text-badeba">badebasupplies.com</a>
+    </div>
+  </footer>
+
+  <div id="cart-overlay" class="cart-overlay" aria-hidden="true"></div>
+  <aside id="cart-drawer" class="cart-drawer" aria-label="Carrito de demostración" aria-hidden="true">
+    <div class="flex items-center justify-between border-b border-white/10 px-5 py-6 md:px-7">
+      <div>
+        <p class="text-[9px] uppercase tracking-[.2em] text-badeba">Demostración educativa</p>
+        <h2 class="mt-1 font-display text-2xl font-semibold uppercase">Tu carrito</h2>
+      </div>
+      <button id="cart-close" type="button" class="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-2xl text-white/55 transition hover:border-badeba hover:text-badeba" aria-label="Cerrar carrito">×</button>
+    </div>
+    <div class="cart-items flex-1 px-5 md:px-7">
+      <div id="cart-items"></div>
+      <section id="cart-addon" class="cart-addon my-6 hidden rounded-[22px] p-4" aria-labelledby="cart-addon-title">
+        <p class="text-[9px] uppercase tracking-[.18em] text-badeba">Sugerencia opcional</p>
+        <h3 id="cart-addon-title" class="mt-1 font-display text-lg font-semibold uppercase">También podría interesarte</h3>
+        <div id="cart-addon-content" class="mt-4"></div>
+      </section>
+    </div>
+    <div class="border-t border-white/10 px-5 py-6 md:px-7">
+      <div class="mb-5 flex items-end justify-between gap-5"><span class="text-[10px] uppercase tracking-[.18em] text-white/42">Subtotal</span><strong id="cart-total" class="font-display text-xl uppercase text-badeba">Por calcular</strong></div>
+      <button id="cart-checkout" type="button" class="whatsapp-action w-full rounded-full px-6 py-4 text-[10px] font-semibold uppercase tracking-[.16em] disabled:cursor-not-allowed disabled:opacity-35" disabled>Finalizar compra · Demo</button>
+      <p class="mt-4 text-center text-[10px] leading-5 text-white/32">No se realizará ningún cobro ni se enviará un pedido real.</p>
+    </div>
+  </aside>
+
+  <dialog id="checkout-dialog" class="checkout-dialog" aria-labelledby="checkout-title">
+    <div id="checkout-content" class="p-6 md:p-9">
+      <div class="flex items-start justify-between gap-5">
+        <div><p class="text-[9px] uppercase tracking-[.2em] text-badeba">Último paso · Demostración</p><h2 id="checkout-title" class="mt-2 font-display text-3xl font-semibold uppercase">Revisa tu selección</h2></div>
+        <button id="checkout-close" type="button" class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 text-2xl text-white/55 transition hover:border-badeba hover:text-badeba" aria-label="Cerrar compra">×</button>
+      </div>
+      <div id="checkout-summary" class="mt-7 border-y border-white/10 py-2"></div>
+      <div class="mt-6 rounded-2xl border border-badeba/25 bg-badeba/[.06] p-4 text-xs leading-6 text-white/58"><strong class="text-badeba">Práctica segura:</strong> esta pantalla demuestra el flujo final de una tienda. No solicita datos personales, no cobra y no transmite pedidos.</div>
+      <button id="checkout-confirm" type="button" class="whatsapp-action mt-6 w-full rounded-full px-6 py-4 text-[10px] font-semibold uppercase tracking-[.16em]">Confirmar demostración</button>
+    </div>
+    <div id="checkout-success" class="hidden p-8 text-center md:p-12">
+      <span class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-badeba font-display text-2xl font-bold text-[#050705]">✓</span>
+      <p class="mt-6 text-[9px] uppercase tracking-[.2em] text-badeba">Flujo completado</p>
+      <h2 class="mt-2 font-display text-3xl font-semibold uppercase">Compra simulada</h2>
+      <p class="mt-4 text-sm leading-7 text-white/52">La práctica terminó correctamente. No se realizó ningún cargo ni pedido real.</p>
+      <button id="checkout-done" type="button" class="detail-action mt-7 rounded-full px-7 py-4 text-[10px] uppercase tracking-[.16em]">Cerrar</button>
+    </div>
+  </dialog>
+
+  <div id="shop-toast" class="shop-toast" role="status" aria-live="polite"></div>
+
+  <dialog id="product-dialog" class="product-dialog" aria-labelledby="product-detail-title">
+    <div class="product-dialog-grid">
+      <div class="product-detail-media relative overflow-hidden">
+        <img id="product-detail-image" src="" alt="">
+        <span class="absolute left-5 top-5 rounded-full border border-[#7CFC00]/50 bg-black/70 px-3 py-2 text-[9px] uppercase tracking-[.2em] text-[#7CFC00]">Skull Collection</span>
+      </div>
+      <div class="flex min-h-[480px] flex-col p-6 md:p-9">
+        <div class="flex items-start justify-between gap-6">
+          <div>
+            <p id="product-detail-eyebrow" class="mb-3 text-[10px] uppercase tracking-[.22em] text-badeba"></p>
+            <h2 id="product-detail-title" class="font-display text-[clamp(2rem,4vw,3.6rem)] font-semibold uppercase leading-[.92] tracking-[-.03em]"></h2>
+          </div>
+          <button id="product-detail-close" type="button" class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 text-2xl text-white/55 transition hover:border-badeba hover:text-badeba" aria-label="Cerrar ficha del producto">×</button>
+        </div>
+        <p id="product-detail-description" class="mt-7 text-sm font-light leading-7 text-white/65"></p>
+        <div id="product-detail-facts" class="mt-7 grid grid-cols-2 gap-4 text-xs"></div>
+        <div class="mt-auto border-t border-white/10 pt-6">
+          <p id="product-detail-verification" class="text-[11px] leading-5 text-white/38"></p>
+          <a id="product-detail-source" href="#" target="_blank" rel="noopener noreferrer" class="mt-4 hidden text-[10px] font-semibold uppercase tracking-[.16em] text-badeba transition hover:text-white">Ver fuente ↗</a>
+          <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <button id="product-add-cart" type="button" class="whatsapp-action rounded-full px-5 py-4 text-[10px] font-semibold uppercase tracking-[.14em]">Agregar al carrito</button>
+            <button id="product-whatsapp" type="button" class="detail-action rounded-full px-5 py-4 text-[10px] font-semibold uppercase tracking-[.14em]">WhatsApp <span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <button id="whatsapp-fab" type="button" class="whatsapp-fab" aria-label="Abrir WhatsApp">
+    <span class="whatsapp-fab-icon" aria-hidden="true">
+      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.6a8 8 0 0 1-11.8 7L4 20l1.4-4A8 8 0 1 1 20 11.6Z"/><path d="M8.8 8.3c.2-.5.5-.5.8-.5h.3c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.6.7c-.2.2-.1.4 0 .6.5.9 1.3 1.7 2.2 2.2.2.1.4.2.6 0l.8-.9c.2-.2.4-.2.7-.1l1.8.9c.3.1.4.3.4.5 0 .4-.2 1.3-.8 1.8-.5.5-1.3.7-2 .5-1.2-.3-2.7-1-4.2-2.4-1.2-1.2-2.1-2.6-2.4-3.8-.2-.9 0-1.7.4-2.4Z"/></svg>
+    </span>
+    <span class="whatsapp-fab-label">WhatsApp</span>
+  </button>
+
+  <aside class="chat-shell" aria-label="Asistente BADEBA">
+    <div id="chat-panel" class="chat-panel" role="dialog" aria-label="Chat con asistente BADEBA" aria-hidden="true">
+      <div class="flex items-center justify-between border-b border-white/10 p-5">
+        <div class="flex items-center gap-3"><span class="grid h-9 w-9 place-items-center rounded-full bg-badeba font-display text-xs font-bold text-[#050705]">BA</span><div><strong class="block font-display text-sm uppercase tracking-[.08em]">Asistente BADEBA</strong><span class="flex items-center gap-2 text-[10px] text-white/38"><i class="h-1.5 w-1.5 rounded-full bg-badeba"></i> Orientación inmediata</span></div></div>
+        <button id="chat-close" type="button" class="text-2xl leading-none text-white/45 transition hover:text-badeba" aria-label="Cerrar chat">×</button>
+      </div>
+      <div id="chat-messages" class="chat-messages flex flex-1 flex-col gap-3 overflow-y-auto p-5" aria-live="polite">
+        <div class="message bot">Hola. Soy el asistente BADEBA. Puedo ayudarte a conocer la Skull Collection, comparar presentaciones y encontrar un producto.</div>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" class="quick-reply rounded-full px-3 py-2 text-[10px]" data-message="Quiero ver gummies">Gummies</button>
+          <button type="button" class="quick-reply rounded-full px-3 py-2 text-[10px]" data-message="Quiero ver flower">Flower</button>
+          <button type="button" class="quick-reply rounded-full px-3 py-2 text-[10px]" data-message="Quiero ver pre-rolls">Pre-rolls</button>
+        </div>
+      </div>
+      <form id="chat-form" class="flex gap-2 border-t border-white/10 p-4">
+        <label for="chat-input" class="sr-only">Escribe tu pregunta</label>
+        <input id="chat-input" autocomplete="off" class="min-w-0 flex-1 rounded-full border border-white/12 bg-white/[.055] px-4 py-3 text-sm text-white outline-none placeholder:text-white/28 focus:border-badeba/55" placeholder="¿Qué producto estás buscando?">
+        <button type="submit" class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-badeba font-bold text-[#050705]" aria-label="Enviar mensaje">↗</button>
+      </form>
+    </div>
+    <button id="chat-toggle" type="button" class="chat-toggle flex items-center font-display text-sm font-bold" aria-expanded="false" aria-controls="chat-panel" aria-label="Abrir asistente BADEBA"><span class="chat-mark">BA</span><span class="chat-label">Asistente</span></button>
+  </aside>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script>
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const header = document.querySelector('.site-header');
+    const cursor = document.querySelector('.cursor-light');
+    const loopLayers = [...document.querySelectorAll('.loop-layer')];
+    const scrollSceneStage = document.querySelector('.scroll-scene-backgrounds');
+    const scrollSceneLayers = [...document.querySelectorAll('.scroll-scene-background')];
+
+    function initScrollScenePreview() {
+      const scenes = ['productos', 'nosotros', 'contacto'].map(name => ({
+        name,
+        section: document.querySelector(`#${name}`)
+      })).filter(scene => scene.section);
+      let scheduled = false;
+      let activeScene = '';
+
+      function updateScene() {
+        scheduled = false;
+        const triggerLine = innerHeight * .58;
+        let nextScene = '';
+
+        for (const scene of scenes) {
+          if (scene.section.getBoundingClientRect().top <= triggerLine) nextScene = scene.name;
+        }
+
+        if (nextScene === activeScene) return;
+        activeScene = nextScene;
+        scrollSceneStage.classList.toggle('has-active', Boolean(activeScene));
+        scrollSceneLayers.forEach(layer => layer.classList.toggle('is-active', layer.dataset.scene === activeScene));
+      }
+
+      function scheduleUpdate() {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(updateScene);
+      }
+
+      addEventListener('scroll', scheduleUpdate, { passive: true });
+      addEventListener('resize', scheduleUpdate, { passive: true });
+      updateScene();
+    }
+
+    initScrollScenePreview();
+
+    function initSeamlessBackground() {
+      if (loopLayers.length !== 2) return;
+      const fadeSeconds = .9;
+      let activeIndex = 0;
+      let crossfading = false;
+
+      const metadataReady = loopLayers.map(video => video.readyState >= 1
+        ? Promise.resolve()
+        : new Promise(resolve => video.addEventListener('loadedmetadata', resolve, { once: true })));
+
+      function crossfade() {
+        if (crossfading) return;
+        crossfading = true;
+        const outgoing = loopLayers[activeIndex];
+        const incoming = loopLayers[1 - activeIndex];
+        incoming.currentTime = 0;
+
+        const activateIncoming = () => {
+          requestAnimationFrame(() => {
+            incoming.classList.add('is-active');
+            outgoing.classList.remove('is-active');
+          });
+          setTimeout(() => {
+            outgoing.pause();
+            outgoing.currentTime = 0;
+            activeIndex = 1 - activeIndex;
+            crossfading = false;
+          }, fadeSeconds * 1000 + 60);
+        };
+
+        const playback = incoming.play();
+        if (playback?.then) playback.then(activateIncoming).catch(() => { crossfading = false; });
+        else activateIncoming();
+      }
+
+      function monitorLoop() {
+        const current = loopLayers[activeIndex];
+        if (!crossfading && Number.isFinite(current.duration)) {
+          const remaining = current.duration - current.currentTime;
+          if (remaining <= fadeSeconds + .16) crossfade();
+        }
+        requestAnimationFrame(monitorLoop);
+      }
+
+      Promise.all(metadataReady).then(() => {
+        loopLayers.forEach((video, index) => {
+          video.muted = true;
+          video.loop = true;
+          if (index !== activeIndex) { video.pause(); video.currentTime = 0; }
+        });
+        loopLayers[activeIndex].play().catch(() => {});
+        requestAnimationFrame(monitorLoop);
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) loopLayers[activeIndex].play().catch(() => {});
+      });
+    }
+
+    initSeamlessBackground();
+
+    // Fuente única de Skull Collection. Añade precios o disponibilidad cuando se confirmen.
+    const catalogProducts = [
+      { id: 'skull-starburst', name: 'Starbuds Gummies', category: 'skull', categoryLabel: 'Skull Collection', eyebrow: 'Gummies · Presentación', description: 'Gomitas de sabores surtidos en sobres individuales.', detail: 'La fotografía muestra dos sobres de Starbuds Gummies con diseño de sabores surtidos. La información visible indica una presentación marcada con 500 mg y 20 piezas; esos datos deben confirmarse directamente en la etiqueta física antes de publicarse como especificación definitiva.', facts: ['Formato · Gummies', 'Contenido visible · 20 piezas', 'Marcado frontal · 500 mg', 'Sabores · Surtidos'], verification: 'Descripción basada en la fotografía del catálogo. No se encontró una ficha oficial verificable que coincida exactamente con este empaque.', sourceLabel: '', sourceUrl: '', tag: '500 mg · 20 piezas', fit: 'wide', price: null, image: 'skull%20fotos/2F7B38BE-767F-4C70-8BC4-9F90C18FC9A5.png' },
+      { id: 'skull-flower-premium', name: 'Cannabis Skull Flower Premium', category: 'skull', categoryLabel: 'Skull Collection', eyebrow: 'Flower · Premium', description: 'Presentación premium Cannabis Skull en empaque resellable.', detail: 'Presentación de flor Cannabis Skull en bolsa negra resellable, diseñada para proteger el contenido de la luz y facilitar el cierre después de abrirse. El frente del empaque identifica la línea como Cannabis Flower Premium.', facts: ['Formato · Flor', 'Contenido · 7 g', 'Empaque · Bolsa resellable', 'Línea · Premium'], verification: 'Información tomada del empaque fotografiado. Composición, variedad y análisis de laboratorio están pendientes de confirmación del proveedor.', sourceLabel: '', sourceUrl: '', tag: '7 g', fit: 'bag', price: null, image: 'skull%20fotos/46D92200-D7C7-4393-8534-E8F0105139F5.png' },
+      { id: 'skull-green-house', name: 'Calidad Green House', category: 'skull', categoryLabel: 'Skull Collection', eyebrow: 'Flower · Green House', description: 'Presentación Cannabis Skull Green House en frasco de vidrio.', detail: 'Flor Cannabis Skull presentada en frasco transparente con tapa roscada. La etiqueta frontal la identifica como Calidad Green House y señala una presentación de 14 gramos.', facts: ['Formato · Flor', 'Contenido · 14 g', 'Empaque · Frasco de vidrio', 'Línea · Green House'], verification: 'Información tomada del empaque fotografiado. Variedad, cannabinoides y análisis de laboratorio requieren confirmación del proveedor.', sourceLabel: '', sourceUrl: '', tag: '14 g', fit: 'jar', price: null, image: 'skull%20fotos/4FAEC41E-E2A7-4603-AA62-30C6BDEEF12D.png' },
+      { id: 'skull-tussi', name: 'Tu$$i', category: 'skull', categoryLabel: 'Skull Collection', eyebrow: 'Edición especial', description: 'Colección en envases compactos con identidad gráfica Tu$$i.', detail: 'Conjunto Tu$$i de tres presentaciones compactas con tapas ilustradas en tonos rosa. La fotografía permite identificar la edición visual, pero no confirma el contenido, peso o variedad de cada recipiente.', facts: ['Formato · Minis', 'Unidades visibles · 3', 'Edición · Tu$$i', 'Contenido · Por confirmar'], verification: 'Descripción visual del catálogo. Los datos de contenido y presentación deben completarse con el inventario oficial.', sourceLabel: '', sourceUrl: '', tag: 'Presentación por confirmar', fit: 'group', price: null, image: 'skull%20fotos/5C7426F0-5389-4771-AF2F-E73A7B3627C9(1).png' },
+      { id: 'skull-peach-ringz', name: 'Baby Jeeter Peach Ringz', category: 'skull', categoryLabel: 'Skull Collection', eyebrow: 'Infused · Indica', description: 'Cinco mini pre-rolls infusionados en frasco sellado.', detail: 'La ficha oficial de Baby Jeeter describe un frasco con cinco mini pre-rolls de 0.5 g cada uno. Se elaboran con flor cultivada en interior, se infusionan con Liquid Diamonds en California y Michigan —o destilado en Arizona— y se recubren con kief. La fotografía corresponde a Peach Ringz, marcada como Indica.', facts: ['Formato · 5 mini pre-rolls', 'Unidad · 0.5 g', 'Contenido total · 2.5 g', 'Variante · Peach Ringz'], verification: 'Información de presentación contrastada con la ficha oficial de Baby Jeeter. La etiqueta física del artículo sigue siendo la referencia final.', sourceLabel: 'Jeeter · Baby Jeeter', sourceUrl: 'https://www.jeeter.com/baby-jeeter', tag: '5 × 0.5 g · 2.5 g', fit: 'jar', price: null, image: 'skull%20fotos/8D1B41E7-919C-41C0-B4B0-A6DD70711A9C.png' },
+      { id: 'skull-molly', name: 'Molly', category: 'skull', categoryLabel: 'Skull Collection', eyebrow: 'Edición especial', description: 'Presentación compacta Molly en varios formatos.', detail: 'Composición visual Molly de recipientes y unidades compactas con tapas amarillas ilustradas. La imagen muestra diferentes formatos, pero no permite confirmar con seguridad el contenido o el peso individual.', facts: ['Formato · Minis', 'Edición · Molly', 'Presentación · Surtida', 'Contenido · Por confirmar'], verification: 'Descripción visual del catálogo. Los datos exactos deberán completarse cuando exista información oficial del proveedor.', sourceLabel: '', sourceUrl: '', tag: 'Detalles por confirmar', fit: 'group', price: null, image: 'skull%20fotos/att.3vq_uBKvo5dU3yakh6r17JnL06YAng3oaarf8TKdcds.png.jpeg' },
+      { id: 'skull-preroll', name: 'Cannabis Skull Pre-Roll', category: 'skull', categoryLabel: 'Skull Collection', eyebrow: 'Pre-Roll · Individual', description: 'Presentación individual Cannabis Skull en tubo protector.', detail: 'Unidad pre-enrollada presentada en un tubo transparente rígido con tapa. Este formato ayuda a mantener la pieza separada y protegida durante su almacenamiento y traslado.', facts: ['Formato · Pre-roll', 'Contenido · 1 pieza', 'Empaque · Tubo protector', 'Marca · Cannabis Skull'], verification: 'Información basada en la fotografía del catálogo. Peso, variedad y composición están pendientes de confirmación.', sourceLabel: '', sourceUrl: '', tag: '1 pieza', fit: 'tube', price: null, image: 'skull%20fotos/att.6N3SdE-aWjz_Hgm9kXkstS817QeTZ6NmxhNnnhiMNz4.png.jpeg' },
+      { id: 'skull-preroll-duo', name: 'Pre Roll Purple Punch', category: 'skull', categoryLabel: 'Skull Collection', eyebrow: 'Pre-Roll · Duo', description: 'Dos presentaciones individuales en tubos protectores.', detail: 'Presentación compuesta por dos unidades pre-enrolladas, cada una dentro de su tubo protector individual. La fotografía muestra dos variantes visuales; no confirma peso o variedad.', facts: ['Formato · Pre-roll', 'Contenido · 2 piezas', 'Empaque · Tubos individuales', 'Variantes · Por confirmar'], verification: 'Información basada en la fotografía del catálogo. Peso, variedad y composición están pendientes de confirmación.', sourceLabel: '', sourceUrl: '', tag: '2 piezas', fit: 'tube-wide', price: null, image: 'skull%20fotos/att.p2bi4Xvw9JJebzVaptGfCX2jAxhaQpFwjDNZzCzAWro.png.jpeg' },
+      { id: 'skull-grapes-cream', name: 'Grapes and Cream Juiced', category: 'skull', categoryLabel: 'Skull Collection', eyebrow: 'Hybrid · Juiced', description: 'Cinco mini blunts infusionados en presentación de 3.5 g.', detail: 'La ficha oficial de Sluggers presenta Grapes & Cream JUICED como un paquete de cinco mini blunts de 0.7 g cada uno, para 3.5 g totales. Describe flor premium, HTE y diamantes de THCA en envoltura de cáñamo; la variante se identifica como híbrida.', facts: ['Formato · 5 mini blunts', 'Unidad · 0.7 g', 'Contenido total · 3.5 g', 'Variante · Grapes & Cream'], verification: 'Información contrastada con la ficha oficial de Sluggers. La etiqueta física y la normativa local son la referencia final.', sourceLabel: 'Sluggers · Grapes & Cream', sourceUrl: 'https://shop.sluggers.com/products/mini-blunt-0-7g-5-pack-grapes-cream-hybrid', tag: '5 piezas · 3.5 g', fit: 'bag', price: null, image: 'skull%20fotos/att.T_hHBGpLytiOljqbSEIUi6YKgMllBMWHufhL5YSCxho.png.jpeg' }
+    ];
+
+    const escapeHTML = value => String(value).replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
+    const formatPrice = price => price == null ? 'Precio por publicar' : new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(price);
+
+    // Pega aquí el número real con código de país, usando solamente dígitos.
+    // Ejemplo de formato: código de país + número, sin +, espacios ni guiones.
+    const WHATSAPP_NUMBER = '';
+
+    function openWhatsApp(productId = '') {
+      const phone = WHATSAPP_NUMBER.replace(/\D/g, '');
+      if (!phone) {
+        alert('Agrega tu número real en la constante WHATSAPP_NUMBER de index.html para activar WhatsApp.');
+        return;
+      }
+
+      const product = productId ? catalogProducts.find(item => item.id === productId) : null;
+      const message = product
+        ? `Hola, me interesa: ${product.name}. Quiero conocer su disponibilidad.`
+        : 'Hola, quiero conocer los productos disponibles.';
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    }
+
+    function renderCatalog(products = catalogProducts) {
+      const grid = document.querySelector('#catalog-grid');
+      grid.innerHTML = products.map(product => `
+        <article class="catalog-card product-card bento-card flex flex-col rounded-[28px]" data-id="${escapeHTML(product.id)}" data-category="${escapeHTML(product.category)}" data-product="${escapeHTML(product.name)}">
+          <div class="product-visual ${product.image ? `has-image fit-${escapeHTML(product.fit || 'bag')}` : ''}">
+            ${product.image ? `<img src="${escapeHTML(product.image)}" alt="${escapeHTML(product.name)}" loading="lazy" decoding="async">` : `<div class="product-shape ${escapeHTML(product.visual)}"></div>`}
+            <span class="absolute left-5 top-5 text-[9px] uppercase tracking-[.2em] text-badeba">${escapeHTML(product.categoryLabel)}</span>
+          </div>
+          <div class="catalog-copy relative z-10 flex flex-1 flex-col p-6">
+            <p class="mb-2 text-[10px] uppercase tracking-[.18em] text-white/38">${escapeHTML(product.eyebrow)}</p>
+            <h3 class="font-display text-2xl font-semibold uppercase tracking-[.03em]">${escapeHTML(product.name)}</h3>
+            <p class="mt-3 text-sm leading-6 text-white/52">${escapeHTML(product.description)}</p>
+            <div class="mt-auto pt-6">
+              <div><span class="block text-[10px] uppercase tracking-[.14em] text-white/36">${escapeHTML(product.tag)}</span><strong class="mt-1 block font-display text-sm uppercase text-badeba">${escapeHTML(formatPrice(product.price))}</strong></div>
+              <div class="mt-4 grid grid-cols-2 gap-2">
+                <button type="button" class="detail-action rounded-full px-3 py-3 text-[9px] uppercase tracking-[.12em]" data-product-id="${escapeHTML(product.id)}">Ver producto</button>
+                <button type="button" class="whatsapp-action rounded-full px-3 py-3 text-[9px] font-semibold uppercase tracking-[.12em]" data-cart-add="${escapeHTML(product.id)}">Agregar</button>
+              </div>
+            </div>
+          </div>
+        </article>`).join('');
+    }
+
+    renderCatalog();
+
+    const CART_STORAGE_KEY = 'badeba-demo-cart-v1';
+    const cartOpen = document.querySelector('#cart-open');
+    const cartClose = document.querySelector('#cart-close');
+    const cartOverlay = document.querySelector('#cart-overlay');
+    const cartDrawer = document.querySelector('#cart-drawer');
+    const cartCount = document.querySelector('#cart-count');
+    const cartItemsElement = document.querySelector('#cart-items');
+    const cartTotal = document.querySelector('#cart-total');
+    const cartCheckout = document.querySelector('#cart-checkout');
+    const cartAddon = document.querySelector('#cart-addon');
+    const cartAddonContent = document.querySelector('#cart-addon-content');
+    const checkoutDialog = document.querySelector('#checkout-dialog');
+    const checkoutContent = document.querySelector('#checkout-content');
+    const checkoutSummary = document.querySelector('#checkout-summary');
+    const checkoutClose = document.querySelector('#checkout-close');
+    const checkoutConfirm = document.querySelector('#checkout-confirm');
+    const checkoutSuccess = document.querySelector('#checkout-success');
+    const checkoutDone = document.querySelector('#checkout-done');
+    const shopToast = document.querySelector('#shop-toast');
+    let toastTimer;
+
+    function loadCart() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '{}');
+        return Object.fromEntries(Object.entries(saved).filter(([id, quantity]) =>
+          catalogProducts.some(product => product.id === id) && Number.isInteger(quantity) && quantity > 0
+        ));
+      } catch (error) {
+        return {};
+      }
+    }
+
+    let cartState = loadCart();
+
+    function saveCart() {
+      try { localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartState)); } catch (error) {}
+    }
+
+    function showShopToast(text) {
+      clearTimeout(toastTimer);
+      shopToast.textContent = text;
+      shopToast.classList.add('is-visible');
+      toastTimer = setTimeout(() => shopToast.classList.remove('is-visible'), 1900);
+    }
+
+    function getCartEntries() {
+      return Object.entries(cartState).map(([id, quantity]) => ({
+        product: catalogProducts.find(item => item.id === id),
+        quantity
+      })).filter(entry => entry.product);
+    }
+
+    function renderCart() {
+      const entries = getCartEntries();
+      const units = entries.reduce((total, entry) => total + entry.quantity, 0);
+      cartCount.textContent = units;
+      cartCount.setAttribute('aria-label', `${units} ${units === 1 ? 'producto' : 'productos'}`);
+      cartCheckout.disabled = entries.length === 0;
+
+      if (!entries.length) {
+        cartItemsElement.innerHTML = '<div class="grid min-h-64 place-items-center py-12 text-center"><div><span class="font-display text-5xl text-badeba/35">00</span><p class="mt-4 text-sm text-white/42">Tu carrito está vacío.</p><p class="mt-2 text-xs text-white/28">Agrega un producto desde el catálogo.</p></div></div>';
+      } else {
+        cartItemsElement.innerHTML = entries.map(({ product, quantity }) => `
+          <article class="cart-item">
+            <img src="${escapeHTML(product.image)}" alt="${escapeHTML(product.name)}">
+            <div class="min-w-0">
+              <h3 class="font-display text-sm font-semibold uppercase leading-5">${escapeHTML(product.name)}</h3>
+              <span class="mt-1 block text-[10px] uppercase tracking-[.12em] text-badeba">${escapeHTML(formatPrice(product.price))}</span>
+              <button type="button" class="mt-2 text-[9px] uppercase tracking-[.12em] text-white/35 transition hover:text-badeba" data-cart-action="remove" data-cart-id="${escapeHTML(product.id)}">Eliminar</button>
+            </div>
+            <div class="cart-quantity" aria-label="Cantidad">
+              <button type="button" data-cart-action="decrease" data-cart-id="${escapeHTML(product.id)}" aria-label="Reducir cantidad">−</button>
+              <span class="min-w-7 text-center text-xs">${quantity}</span>
+              <button type="button" data-cart-action="increase" data-cart-id="${escapeHTML(product.id)}" aria-label="Aumentar cantidad">+</button>
+            </div>
+          </article>`).join('');
+      }
+
+      const allHavePrice = entries.length > 0 && entries.every(({ product }) => product.price != null);
+      const subtotal = entries.reduce((total, { product, quantity }) => total + (product.price || 0) * quantity, 0);
+      cartTotal.textContent = allHavePrice ? formatPrice(subtotal) : 'Por calcular';
+
+      const recommendation = entries.length ? catalogProducts.find(product => !cartState[product.id]) : null;
+      cartAddon.classList.toggle('hidden', !recommendation);
+      if (recommendation) {
+        cartAddonContent.innerHTML = `
+          <div class="flex items-center gap-3">
+            <img src="${escapeHTML(recommendation.image)}" alt="${escapeHTML(recommendation.name)}">
+            <div class="min-w-0 flex-1"><strong class="block font-display text-xs uppercase leading-5">${escapeHTML(recommendation.name)}</strong><span class="mt-1 block text-[9px] uppercase tracking-[.12em] text-white/38">No se agrega automáticamente</span></div>
+            <button type="button" class="detail-action shrink-0 rounded-full px-3 py-2 text-[9px] uppercase" data-addon-id="${escapeHTML(recommendation.id)}">Agregar</button>
+          </div>`;
+      } else {
+        cartAddonContent.replaceChildren();
+      }
+    }
+
+    function setCart(open) {
+      cartDrawer.classList.toggle('is-open', open);
+      cartOverlay.classList.toggle('is-open', open);
+      cartDrawer.setAttribute('aria-hidden', String(!open));
+      cartOverlay.setAttribute('aria-hidden', String(!open));
+      cartOpen.setAttribute('aria-expanded', String(open));
+      if (open) setTimeout(() => cartClose.focus(), 120);
+    }
+
+    function addToCart(productId) {
+      const product = catalogProducts.find(item => item.id === productId);
+      if (!product) return;
+      cartState[productId] = (cartState[productId] || 0) + 1;
+      saveCart();
+      renderCart();
+      showShopToast(`${product.name} agregado`);
+    }
+
+    function updateCartItem(productId, action) {
+      if (!cartState[productId]) return;
+      if (action === 'increase') cartState[productId] += 1;
+      if (action === 'decrease') cartState[productId] -= 1;
+      if (action === 'remove' || cartState[productId] < 1) delete cartState[productId];
+      saveCart();
+      renderCart();
+    }
+
+    function openCheckout() {
+      const entries = getCartEntries();
+      if (!entries.length) return;
+      checkoutSuccess.classList.add('hidden');
+      checkoutContent.classList.remove('hidden');
+      checkoutSummary.innerHTML = entries.map(({ product, quantity }) => `
+        <div class="flex items-center justify-between gap-5 border-b border-white/[.07] py-4 last:border-0">
+          <div><strong class="font-display text-sm uppercase">${escapeHTML(product.name)}</strong><span class="mt-1 block text-[10px] text-white/38">Cantidad · ${quantity}</span></div>
+          <span class="shrink-0 text-xs text-badeba">${escapeHTML(formatPrice(product.price))}</span>
+        </div>`).join('');
+      setCart(false);
+      checkoutDialog.showModal();
+    }
+
+    renderCart();
+
+    const productDialog = document.querySelector('#product-dialog');
+    const productDetailClose = document.querySelector('#product-detail-close');
+    const productDetailImage = document.querySelector('#product-detail-image');
+    const productDetailEyebrow = document.querySelector('#product-detail-eyebrow');
+    const productDetailTitle = document.querySelector('#product-detail-title');
+    const productDetailDescription = document.querySelector('#product-detail-description');
+    const productDetailFacts = document.querySelector('#product-detail-facts');
+    const productDetailVerification = document.querySelector('#product-detail-verification');
+    const productDetailSource = document.querySelector('#product-detail-source');
+    const productAddCart = document.querySelector('#product-add-cart');
+    const productWhatsApp = document.querySelector('#product-whatsapp');
+    const whatsappFab = document.querySelector('#whatsapp-fab');
+
+    function openProductDetail(productId) {
+      const product = catalogProducts.find(item => item.id === productId);
+      if (!product) return;
+
+      productDetailImage.src = product.image;
+      productDetailImage.alt = product.name;
+      productDetailEyebrow.textContent = product.eyebrow;
+      productDetailTitle.textContent = product.name;
+      productDetailDescription.textContent = product.detail;
+      productDetailVerification.textContent = product.verification;
+      productDetailFacts.replaceChildren();
+
+      product.facts.forEach(fact => {
+        const item = document.createElement('p');
+        item.className = 'detail-fact';
+        item.textContent = fact;
+        productDetailFacts.append(item);
+      });
+
+      const hasSource = Boolean(product.sourceUrl);
+      productDetailSource.classList.toggle('hidden', !hasSource);
+      productDetailSource.href = hasSource ? product.sourceUrl : '#';
+      productDetailSource.textContent = hasSource ? `Fuente: ${product.sourceLabel} ↗` : '';
+      productDialog.dataset.productId = product.id;
+      productDialog.showModal();
+    }
+
+    document.querySelectorAll('[data-product-id]').forEach(button => button.addEventListener('click', () => openProductDetail(button.dataset.productId)));
+    document.querySelectorAll('[data-cart-add]').forEach(button => button.addEventListener('click', () => addToCart(button.dataset.cartAdd)));
+    productAddCart.addEventListener('click', () => addToCart(productDialog.dataset.productId));
+    productWhatsApp.addEventListener('click', () => openWhatsApp(productDialog.dataset.productId));
+    whatsappFab.addEventListener('click', () => openWhatsApp());
+    productDetailClose.addEventListener('click', () => productDialog.close());
+    productDialog.addEventListener('click', event => { if (event.target === productDialog) productDialog.close(); });
+
+    cartOpen.addEventListener('click', () => setCart(true));
+    cartClose.addEventListener('click', () => setCart(false));
+    cartOverlay.addEventListener('click', () => setCart(false));
+    cartCheckout.addEventListener('click', openCheckout);
+    cartItemsElement.addEventListener('click', event => {
+      const button = event.target.closest('[data-cart-action]');
+      if (button) updateCartItem(button.dataset.cartId, button.dataset.cartAction);
+    });
+    cartAddonContent.addEventListener('click', event => {
+      const button = event.target.closest('[data-addon-id]');
+      if (button) addToCart(button.dataset.addonId);
+    });
+    checkoutClose.addEventListener('click', () => checkoutDialog.close());
+    checkoutDone.addEventListener('click', () => checkoutDialog.close());
+    checkoutDialog.addEventListener('click', event => { if (event.target === checkoutDialog) checkoutDialog.close(); });
+    checkoutConfirm.addEventListener('click', () => {
+      cartState = {};
+      saveCart();
+      renderCart();
+      checkoutContent.classList.add('hidden');
+      checkoutSuccess.classList.remove('hidden');
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && cartDrawer.classList.contains('is-open')) setCart(false);
+    });
+
+    // Recorta fondos claros de las fotos en el navegador sin alterar los archivos originales.
+    async function createProductCutout(image) {
+      if (!image.complete) await new Promise((resolve, reject) => {
+        image.addEventListener('load', resolve, { once: true });
+        image.addEventListener('error', reject, { once: true });
+      });
+      if (image.decode) await image.decode().catch(() => {});
+
+      const sourceWidth = image.naturalWidth;
+      const sourceHeight = image.naturalHeight;
+      if (!sourceWidth || !sourceHeight) throw new Error('Imagen sin dimensiones');
+
+      const scale = Math.min(1, 820 / Math.max(sourceWidth, sourceHeight));
+      const width = Math.max(1, Math.round(sourceWidth * scale));
+      const height = Math.max(1, Math.round(sourceHeight * scale));
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext('2d', { willReadFrequently: true });
+      context.drawImage(image, 0, 0, width, height);
+      const pixels = context.getImageData(0, 0, width, height);
+      const data = pixels.data;
+      const total = width * height;
+      const visited = new Uint8Array(total);
+      const queue = new Int32Array(total);
+      let head = 0;
+      let tail = 0;
+
+      const cornerSamples = [0, width - 1, (height - 1) * width, total - 1];
+      const key = cornerSamples.reduce((sum, pixel) => {
+        const offset = pixel * 4;
+        sum[0] += data[offset]; sum[1] += data[offset + 1]; sum[2] += data[offset + 2];
+        return sum;
+      }, [0, 0, 0]).map(channel => channel / cornerSamples.length);
+
+      const isBackground = pixel => {
+        const offset = pixel * 4;
+        const red = data[offset];
+        const green = data[offset + 1];
+        const blue = data[offset + 2];
+        const brightness = (red + green + blue) / 3;
+        const chroma = Math.max(red, green, blue) - Math.min(red, green, blue);
+        const distance = Math.hypot(red - key[0], green - key[1], blue - key[2]);
+        return brightness > 188 && chroma < 48 && distance < 92;
+      };
+
+      const enqueue = pixel => {
+        if (!visited[pixel] && isBackground(pixel)) {
+          visited[pixel] = 1;
+          queue[tail++] = pixel;
+        }
+      };
+
+      for (let x = 0; x < width; x += 1) {
+        enqueue(x);
+        enqueue((height - 1) * width + x);
+      }
+      for (let y = 1; y < height - 1; y += 1) {
+        enqueue(y * width);
+        enqueue(y * width + width - 1);
+      }
+
+      while (head < tail) {
+        const pixel = queue[head++];
+        const x = pixel % width;
+        if (x > 0) enqueue(pixel - 1);
+        if (x < width - 1) enqueue(pixel + 1);
+        if (pixel >= width) enqueue(pixel - width);
+        if (pixel < total - width) enqueue(pixel + width);
+      }
+
+      for (let pixel = 0; pixel < total; pixel += 1) {
+        if (visited[pixel]) data[pixel * 4 + 3] = 0;
+      }
+
+      context.putImageData(pixels, 0, 0);
+      return new Promise((resolve, reject) => canvas.toBlob(blob => blob ? resolve(URL.createObjectURL(blob)) : reject(new Error('No se pudo crear el recorte')), 'image/png'));
+    }
+
+    async function prepareCatalogCutouts() {
+      const images = [...document.querySelectorAll('.product-visual.has-image img')];
+      for (const image of images) {
+        const fallback = setTimeout(() => image.classList.add('is-fallback'), 3500);
+        try {
+          const cutout = await createProductCutout(image);
+          image.src = cutout;
+          image.classList.remove('is-fallback');
+          image.classList.add('is-cutout');
+        } catch (error) {
+          image.classList.add('is-fallback');
+        } finally {
+          clearTimeout(fallback);
+        }
+        await new Promise(resolve => requestAnimationFrame(resolve));
+      }
+    }
+
+    // Se muestran las fotografías originales sin recorte ni procesamiento en tiempo de carga.
+
+    addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 24), { passive: true });
+
+    if (!reduceMotion && window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+      const lenis = new Lenis({ duration: 1.25, smoothWheel: true, wheelMultiplier: .85 });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(time => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+
+      gsap.from('.hero-reveal', { y: 42, opacity: 0, duration: 1.05, stagger: .15, ease: 'power3.out', delay: .18 });
+      gsap.from('.bento-card', {
+        scrollTrigger: { trigger: '#productos', start: 'top 72%' },
+        y: 54, opacity: 0, rotationX: 7, rotationZ: 1.2, transformOrigin: '50% 100%', duration: .9, stagger: .12, ease: 'power3.out'
+      });
+      gsap.from('.reveal-copy', { scrollTrigger: { trigger: '#nosotros', start: 'top 70%' }, y: 48, opacity: 0, duration: 1, stagger: .18, ease: 'power3.out' });
+
+      addEventListener('pointermove', e => {
+        document.documentElement.style.setProperty('--cx', `${e.clientX}px`);
+        document.documentElement.style.setProperty('--cy', `${e.clientY}px`);
+      }, { passive: true });
+
+      document.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('pointermove', e => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--card-x', `${e.clientX - r.left}px`);
+          card.style.setProperty('--card-y', `${e.clientY - r.top}px`);
+          gsap.to(card, { rotationY: ((e.clientX - r.left) / r.width - .5) * 3, rotationX: ((e.clientY - r.top) / r.height - .5) * -3, duration: .45, ease: 'power2.out' });
+        });
+        card.addEventListener('pointerleave', () => gsap.to(card, { rotationX: 0, rotationY: 0, duration: .6, ease: 'power3.out' }));
+      });
+
+      document.querySelectorAll('.magnetic').forEach(button => {
+        button.addEventListener('pointermove', e => {
+          const r = button.getBoundingClientRect();
+          gsap.to(button, { x: (e.clientX - r.left - r.width / 2) * .16, y: (e.clientY - r.top - r.height / 2) * .2, duration: .3, ease: 'power2.out' });
+        });
+        button.addEventListener('pointerleave', () => gsap.to(button, { x: 0, y: 0, duration: .6, ease: 'elastic.out(1,.45)' }));
+      });
+    }
+
+    const filterButtons = [...document.querySelectorAll('.filter-button')];
+    const catalogCards = [...document.querySelectorAll('.catalog-card')];
+    const catalogStatus = document.querySelector('#catalog-status');
+
+    filterButtons.forEach(button => button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+      filterButtons.forEach(item => item.classList.toggle('is-active', item === button));
+      let visible = 0;
+      catalogCards.forEach(card => {
+        const show = filter === 'all' || card.dataset.category === filter;
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+      catalogStatus.textContent = `Mostrando ${visible} ${visible === 1 ? 'producto' : 'productos'}`;
+      if (!reduceMotion && window.gsap) gsap.from(catalogCards.filter(card => !card.hidden), { opacity: 0, y: 18, duration: .45, stagger: .055, clearProps: 'all' });
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }));
+
+    const chatToggle = document.querySelector('#chat-toggle');
+    const chatPanel = document.querySelector('#chat-panel');
+    const chatClose = document.querySelector('#chat-close');
+    const chatMessages = document.querySelector('#chat-messages');
+    const chatForm = document.querySelector('#chat-form');
+    const chatInput = document.querySelector('#chat-input');
+
+    function setChat(open) {
+      chatPanel.classList.toggle('is-open', open);
+      chatPanel.setAttribute('aria-hidden', String(!open));
+      chatToggle.setAttribute('aria-expanded', String(open));
+      if (open) setTimeout(() => chatInput.focus(), 100);
+    }
+
+    function addMessage(text, type) {
+      const message = document.createElement('div');
+      message.className = `message ${type}`;
+      message.textContent = text;
+      chatMessages.append(message);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function botReply(input) {
+      const text = input.toLocaleLowerCase('es');
+      if (/gumm|gomita|starbud/.test(text)) return 'Starbuds Gummies aparece en la colección con una presentación fotografiada de 20 piezas y marcado frontal de 500 mg. Abre “Ver producto” para revisar la ficha.';
+      if (/flower|flor|green house|premium/.test(text)) return 'La colección muestra Flower Premium de 7 g y Green House de 14 g. Abre “Ver producto” para comparar sus presentaciones.';
+      if (/pre.?roll|jeeter|grapes|joint|blunt|purple punch/.test(text)) return 'Puedes revisar Baby Jeeter Peach Ringz, Cannabis Skull Pre-Roll, Pre Roll Purple Punch y Grapes & Cream Juiced desde sus fichas de producto.';
+      if (/molly|tu\$\$i|tussi/.test(text)) return 'Molly y Tu$$i forman parte de las ediciones especiales. Abre “Ver producto” para ver la fotografía y los detalles confirmados.';
+      if (/precio|comprar|venta|disponib|catálogo|catalogo|carrito/.test(text)) return 'Puedes agregar productos al carrito y completar una compra simulada. No se realizará ningún cobro ni se enviará un pedido real; los precios aparecerán cuando exista un inventario configurado.';
+      if (/hola|buen/.test(text)) return 'Hola. Puedo ayudarte a encontrar gummies, flower, pre-rolls o ediciones especiales dentro de Skull Collection.';
+      return 'Dime qué formato buscas: gummies, flower, pre-rolls o ediciones especiales. Te indicaré qué productos revisar.';
+    }
+
+    function sendChat(text) {
+      const clean = text.trim();
+      if (!clean) return;
+      addMessage(clean, 'user');
+      chatInput.value = '';
+      setTimeout(() => addMessage(botReply(clean), 'bot'), 320);
+    }
+
+    chatToggle.addEventListener('click', () => setChat(!chatPanel.classList.contains('is-open')));
+    chatClose.addEventListener('click', () => setChat(false));
+    chatForm.addEventListener('submit', event => { event.preventDefault(); sendChat(chatInput.value); });
+    document.querySelectorAll('.quick-reply').forEach(button => button.addEventListener('click', () => sendChat(button.dataset.message)));
+  </script>
+</body>
+</html>
