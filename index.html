@@ -1171,15 +1171,18 @@
         document.documentElement.style.setProperty('--cy', `${e.clientY}px`);
       }, { passive: true });
 
-      document.querySelectorAll('.product-card').forEach(card => {
-        card.addEventListener('pointermove', e => {
-          const r = card.getBoundingClientRect();
-          card.style.setProperty('--card-x', `${e.clientX - r.left}px`);
-          card.style.setProperty('--card-y', `${e.clientY - r.top}px`);
-          gsap.to(card, { rotationY: ((e.clientX - r.left) / r.width - .5) * 3, rotationX: ((e.clientY - r.top) / r.height - .5) * -3, duration: .45, ease: 'power2.out' });
+      if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        document.querySelectorAll('.product-card').forEach(card => {
+          card.addEventListener('pointermove', e => {
+            if (e.pointerType !== 'mouse') return;
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--card-x', `${e.clientX - r.left}px`);
+            card.style.setProperty('--card-y', `${e.clientY - r.top}px`);
+            gsap.to(card, { rotationY: ((e.clientX - r.left) / r.width - .5) * 3, rotationX: ((e.clientY - r.top) / r.height - .5) * -3, duration: .45, ease: 'power2.out' });
+          });
+          card.addEventListener('pointerleave', () => gsap.to(card, { rotationX: 0, rotationY: 0, duration: .6, ease: 'power3.out' }));
         });
-        card.addEventListener('pointerleave', () => gsap.to(card, { rotationX: 0, rotationY: 0, duration: .6, ease: 'power3.out' }));
-      });
+      }
 
       document.querySelectorAll('.magnetic').forEach(button => {
         button.addEventListener('pointermove', e => {
