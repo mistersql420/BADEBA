@@ -429,7 +429,7 @@
       <div class="mx-auto grid max-w-[1500px] gap-16 lg:grid-cols-2 lg:items-center">
         <div class="reveal-copy">
           <p class="section-kicker mb-6 text-[11px] font-semibold uppercase tracking-[.25em] text-badeba">La experiencia BADEBA</p>
-          <h2 class="font-display text-[clamp(3rem,7vw,7rem)] font-semibold uppercase leading-[.88] tracking-[-.05em]">Menos vueltas.<br><span class="text-white/30">Más estilo.</span></h2>
+          <h2 class="font-display text-[clamp(3rem,7vw,7rem)] font-semibold uppercase leading-[.88] tracking-[-.05em]">Menos vueltas.<br><span class="text-white/25">Más estilo.</span></h2>
         </div>
         <div class="reveal-copy grid gap-8 border-l border-white/10 pl-7 md:pl-12">
           <p class="text-lg font-light leading-8 text-white/65">BADEBA SUPPLIES reúne una colección visual, directa y fácil de explorar para que encuentres tu presentación favorita.</p>
@@ -1171,18 +1171,50 @@
         document.documentElement.style.setProperty('--cy', `${e.clientY}px`);
       }, { passive: true });
 
-      if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
-        document.querySelectorAll('.product-card').forEach(card => {
-          card.addEventListener('pointermove', e => {
-            if (e.pointerType !== 'mouse') return;
-            const r = card.getBoundingClientRect();
-            card.style.setProperty('--card-x', `${e.clientX - r.left}px`);
-            card.style.setProperty('--card-y', `${e.clientY - r.top}px`);
-            gsap.to(card, { rotationY: ((e.clientX - r.left) / r.width - .5) * 3, rotationX: ((e.clientY - r.top) / r.height - .5) * -3, duration: .45, ease: 'power2.out' });
-          });
-          card.addEventListener('pointerleave', () => gsap.to(card, { rotationX: 0, rotationY: 0, duration: .6, ease: 'power3.out' }));
+      const tiltQuery = matchMedia('(hover: hover) and (pointer: fine)');
+      const productCards = [...document.querySelectorAll('.product-card')];
+
+      function resetTilt(card) {
+        gsap.to(card, { rotationX: 0, rotationY: 0, duration: .6, ease: 'power3.out' });
+      }
+
+      function handleTiltMove(e) {
+        if (e.pointerType !== 'mouse') return;
+        const card = e.currentTarget;
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--card-x', `${e.clientX - r.left}px`);
+        card.style.setProperty('--card-y', `${e.clientY - r.top}px`);
+        gsap.to(card, { rotationY: ((e.clientX - r.left) / r.width - .5) * 3, rotationX: ((e.clientY - r.top) / r.height - .5) * -3, duration: .45, ease: 'power2.out' });
+      }
+
+      function handleTiltEnd(e) {
+        resetTilt(e.currentTarget);
+      }
+
+      function enableCardTilt() {
+        productCards.forEach(card => {
+          card.addEventListener('pointermove', handleTiltMove);
+          card.addEventListener('pointerleave', handleTiltEnd);
+          card.addEventListener('pointercancel', handleTiltEnd);
         });
       }
+
+      function disableCardTilt() {
+        productCards.forEach(card => {
+          card.removeEventListener('pointermove', handleTiltMove);
+          card.removeEventListener('pointerleave', handleTiltEnd);
+          card.removeEventListener('pointercancel', handleTiltEnd);
+          resetTilt(card);
+        });
+      }
+
+      function syncCardTilt() {
+        if (tiltQuery.matches) enableCardTilt();
+        else disableCardTilt();
+      }
+
+      syncCardTilt();
+      tiltQuery.addEventListener('change', syncCardTilt);
 
       document.querySelectorAll('.magnetic').forEach(button => {
         button.addEventListener('pointermove', e => {
