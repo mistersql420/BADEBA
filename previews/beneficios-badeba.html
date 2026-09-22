@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BADEBA — Propuesta de sección</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --acid:#7cfc00; --black:#050705; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--black); color:#fff; font-family:Inter,sans-serif; }
+    ::selection { background:var(--acid); color:var(--black); }
+    .preview-label { margin:0; padding:16px 5%; border-bottom:1px solid #ffffff18; color:#ffffff85; font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
+    .benefits { position:relative; overflow:hidden; padding:70px 5% 64px; }
+    .benefits::before { content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 15% 80%,#7cfc0012,transparent 50%); }
+    .wrap { max-width:1380px; margin:auto; position:relative; }
+    .section-top { display:flex; justify-content:space-between; gap:20px; align-items:center; margin-bottom:35px; }
+    .kicker { margin:0; color:var(--acid); font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; }
+    .rule { height:1px; flex:1; background:#ffffff1c; margin-left:22px; }
+    .index { color:#ffffff60; font-size:11px; letter-spacing:.15em; }
+    .layout { display:grid; grid-template-columns:1.05fr 1fr; gap:70px; align-items:start; }
+    h1 { font:600 clamp(40px,4.5vw,72px)/.98 Syne,sans-serif; letter-spacing:-.045em; text-transform:uppercase; margin:0 0 26px; }
+    h1 span { color:var(--acid); }
+    .intro { max-width:470px; margin:0; color:#ffffffa6; font-size:15px; font-weight:300; line-height:1.9; }
+    .cta { display:inline-flex; align-items:center; gap:26px; padding:17px 23px; margin-top:27px; border:1px solid var(--acid); border-radius:999px; color:var(--black); background:var(--acid); text-decoration:none; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.12em; transition:background .2s,color .2s; }
+    .cta:hover { background:transparent; color:var(--acid); }
+    a:focus-visible { outline:2px solid var(--acid); outline-offset:5px; }
+    .brand-panel { position:relative; display:flex; align-items:center; gap:22px; margin-top:35px; padding:22px 0; border-top:1px solid #7cfc0055; border-bottom:1px solid #ffffff1c; }
+    .brand-panel img { width:80px; height:80px; object-fit:contain; }
+    .brand-panel strong { display:block; font:600 22px Syne,sans-serif; letter-spacing:-.02em; }
+    .brand-panel p { color:#ffffff80; margin:8px 0 0; font-size:12px; line-height:1.6; }
+    .seal { margin-left:auto; color:var(--acid); font:500 32px Syne,sans-serif; }
+    .cards { display:grid; grid-template-columns:1fr 1fr; gap:16px; padding-top:4px; }
+    .card { position:relative; padding:26px 24px 28px; min-height:218px; border:1px solid #ffffff1f; border-radius:22px; background:#ffffff03; }
+    .card:first-child { border-color:#7cfc0055; background:linear-gradient(145deg,#7cfc0010,transparent); }
+    .card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:27px; }
+    .icon { width:26px; height:26px; color:var(--acid); fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+    .number { color:#ffffff40; font-size:11px; letter-spacing:.12em; }
+    h2 { margin:0 0 11px; font:600 20px/1.15 Syne,sans-serif; letter-spacing:-.025em; }
+    .card p { margin:0; color:#ffffff90; font-size:13px; line-height:1.75; }
+    .bottom { display:flex; gap:14px; align-items:center; margin-top:36px; color:#ffffff66; font-size:11px; line-height:1.7; }
+    .dot { width:6px; height:6px; flex:none; border-radius:50%; background:var(--acid); }
+    @media(max-width:850px) { .layout { grid-template-columns:1fr; gap:35px; } .benefits { padding:44px 6%; } h1 { max-width:600px; } .intro { max-width:600px; } .brand-panel { max-width:600px; } }
+    @media(max-width:480px) { .cards { grid-template-columns:1fr; } .card { min-height:0; padding:24px; } .card-top { margin-bottom:18px; } .rule { margin-left:0; } .index { display:none; } .brand-panel img { width:60px; height:60px; } .brand-panel strong { font-size:18px; } .seal { font-size:24px; } }
+    @media(prefers-reduced-motion:reduce) { .cta { transition:none; } }
+  </style>
+</head>
+<body>
+  <p class="preview-label">BADEBA SUPPLIES / Vista previa de nueva sección</p>
+  <main>
+    <section class="benefits" aria-labelledby="benefits-title">
+      <div class="wrap">
+        <div class="section-top"><p class="kicker">La experiencia BADEBA</p><span class="rule" aria-hidden="true"></span><span class="index">CLARIDAD EN CADA DETALLE</span></div>
+        <div class="layout">
+          <div>
+            <h1 id="benefits-title">Información<br>clara.<br><span>Estilo propio.</span></h1>
+            <p class="intro">Conoce la colección a tu ritmo. Fotografías, detalles y fuentes reunidos en un solo lugar para que cada presentación sea fácil de entender.</p>
+            <a class="cta" href="../index.html#faq">Resuelve tus dudas <span aria-hidden="true">↗</span></a>
+            <div class="brand-panel">
+              <img src="../assets/brand/badeba-supplies/cannabis-skull.jpeg" alt="Emblema de BADEBA SUPPLIES">
+              <div><strong>BADEBA SUPPLIES</strong><p>Skull Collection<br>Una identidad que se reconoce.</p></div>
+              <span class="seal" aria-hidden="true">↗</span>
+            </div>
+          </div>
+          <div class="cards">
+            <article class="card"><div class="card-top"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h4"/></svg><span class="number">01 / DETALLES</span></div><h2>Todo a la vista</h2><p>Revisa el formato y los datos de cada presentación desde su propia ficha.</p></article>
+            <article class="card"><div class="card-top"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m4 18 5-5 4 4 3-3 5 5"/></svg><span class="number">02 / IMÁGENES</span></div><h2>Identidad real</h2><p>Fotografías del catálogo BADEBA para reconocer los detalles de la colección.</p></article>
+            <article class="card"><div class="card-top"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></svg><span class="number">03 / FUENTES</span></div><h2>Datos con contexto</h2><p>Consulta las notas de verificación y el origen de la información en cada ficha.</p></article>
+            <article class="card"><div class="card-top"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 1-8 8H5l-3 3v-11a9 9 0 0 1 18 0Z"/><path d="M8 10h8M8 14h5"/></svg><span class="number">04 / AYUDA</span></div><h2>Dudas, sin rodeos</h2><p>Encuentra respuestas sobre las fichas, la información disponible y el uso del sitio.</p></article>
+          </div>
+        </div>
+        <div class="bottom"><span class="dot" aria-hidden="true"></span><span>Explora. Revisa. Conoce. Tú marcas el ritmo.</span></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

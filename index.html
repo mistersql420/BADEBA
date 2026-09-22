@@ -239,8 +239,8 @@
     .faq-trigger:hover { color: var(--acid); }
     .faq-icon { flex: 0 0 auto; width: 20px; height: 20px; color: var(--acid); transition: transform .4s cubic-bezier(.22,.8,.24,1); }
     .faq-trigger[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
-    .faq-panel { max-height: 0; overflow: hidden; opacity: 0; transition: max-height .45s cubic-bezier(.22,.8,.24,1), opacity .35s ease; }
-    .faq-panel.is-open { opacity: 1; }
+    .faq-panel { max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height .45s cubic-bezier(.22,.8,.24,1), opacity .35s ease; }
+    .faq-panel.is-open { opacity: 1; visibility: visible; }
 
     .menu-list { border-top: 1px solid rgba(255,255,255,.1); }
     .menu-row {
@@ -275,6 +275,56 @@
       .brand-image { animation: none; filter: drop-shadow(0 0 5px rgba(124,252,0,.38)); }
       .scroll-scene-background { transition: none; transform: none; }
       .faq-panel, .faq-icon { transition-duration: .01ms !important; }
+    }
+
+    /* Sección informativa BADEBA — estilos aislados */
+
+    .bb-benefits { background:rgba(5,7,5,.92); position:relative; overflow:hidden; padding:70px 5% 64px; }
+    .bb-benefits::before { content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 15% 80%,#7cfc0012,transparent 50%); }
+    .bb-wrap { max-width:1380px; margin:auto; position:relative; }
+    .bb-section-top { display:flex; justify-content:space-between; gap:20px; align-items:center; margin-bottom:35px; }
+    .bb-kicker { margin:0; color:var(--acid); font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; }
+    .bb-rule { height:1px; flex:1; background:#ffffff1c; margin-left:22px; }
+    .bb-index { color:#ffffff60; font-size:11px; letter-spacing:.15em; }
+    .bb-layout { display:grid; grid-template-columns:1.05fr 1fr; gap:70px; align-items:start; }
+    .bb-title { font:600 clamp(40px,4.5vw,72px)/.98 Syne,sans-serif; letter-spacing:-.045em; text-transform:uppercase; margin:0 0 26px; }
+    .bb-title span { color:var(--acid); }
+    .bb-intro { max-width:470px; margin:0; color:#ffffffa6; font-size:15px; font-weight:300; line-height:1.9; }
+    .bb-cta { display:inline-flex; align-items:center; gap:26px; padding:17px 23px; margin-top:27px; border:1px solid var(--acid); border-radius:999px; color:var(--black); background:var(--acid); text-decoration:none; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.12em; transition:background .2s,color .2s; }
+    .bb-cta:hover { background:transparent; color:var(--acid); }
+    #beneficios a:focus-visible { outline:2px solid var(--acid); outline-offset:5px; }
+    .bb-brand-panel { position:relative; display:flex; align-items:center; gap:22px; margin-top:35px; padding:22px 0; border-top:1px solid #7cfc0055; border-bottom:1px solid #ffffff1c; }
+    .bb-brand-panel img { width:80px; height:80px; object-fit:contain; }
+    .bb-brand-panel strong { display:block; font:600 22px Syne,sans-serif; letter-spacing:-.02em; }
+    .bb-brand-panel p { color:#ffffff80; margin:8px 0 0; font-size:12px; line-height:1.6; }
+    .bb-seal { margin-left:auto; color:var(--acid); font:500 32px Syne,sans-serif; }
+    .bb-cards { display:grid; grid-template-columns:1fr 1fr; gap:16px; padding-top:4px; }
+    .bb-card { position:relative; padding:26px 24px 28px; min-height:218px; border:1px solid #ffffff1f; border-radius:22px; background:#ffffff03; }
+    .bb-card:first-child { border-color:#7cfc0055; background:linear-gradient(145deg,#7cfc0010,transparent); }
+    .bb-card-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:27px; }
+    .bb-icon { width:26px; height:26px; color:var(--acid); fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+    .bb-number { color:#ffffff40; font-size:11px; letter-spacing:.12em; }
+    .bb-card h3 { margin:0 0 11px; font:600 20px/1.15 Syne,sans-serif; letter-spacing:-.025em; }
+    .bb-card p { margin:0; color:#ffffff90; font-size:13px; line-height:1.75; }
+    .bb-bottom { display:flex; gap:14px; align-items:center; margin-top:36px; color:#ffffff66; font-size:11px; line-height:1.7; }
+    .bb-dot { width:6px; height:6px; flex:none; border-radius:50%; background:var(--acid); }
+    @media(max-width:850px) { .bb-layout { grid-template-columns:1fr; gap:35px; } .bb-benefits { padding:44px 6%; } .bb-title { max-width:600px; } .bb-intro { max-width:600px; } .bb-brand-panel { max-width:600px; } }
+    @media(max-width:480px) { .bb-cards { grid-template-columns:1fr; } .bb-card { min-height:0; padding:24px; } .bb-card-top { margin-bottom:18px; } .bb-rule { margin-left:0; } .bb-index { display:none; } .bb-brand-panel img { width:60px; height:60px; } .bb-brand-panel strong { font-size:18px; } .bb-seal { font-size:24px; } }
+    @media(prefers-reduced-motion:reduce) { .bb-cta { transition:none; } }
+
+  </style>
+  <style>
+    .hero-title-3d {
+      display: inline-block;
+      transform: perspective(1000px) rotateX(var(--title-rx, 0deg)) rotateY(var(--title-ry, 0deg));
+      transform-origin: center;
+      text-shadow: 1px 1px 0 #050705, 2px 2px 0 #050705,
+        3px 3px 0 #050705, 4px 4px 0 #050705, 5px 5px 0 #050705,
+        6px 6px 0 rgba(124,252,0,.55), 9px 12px 18px rgba(0,0,0,.65);
+      transition: transform 180ms ease-out;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-title-3d { transform: none; transition: none; }
     }
   </style>
 </head>
@@ -388,6 +438,31 @@
             <div class="border-t border-badeba/40 pt-4"><strong class="font-display text-3xl">LOCAL</strong><span class="mt-2 block text-[10px] uppercase tracking-[.2em] text-white/42">Bahía de Banderas</span></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="beneficios" class="bb-benefits" aria-labelledby="benefits-title">
+      <div class="bb-wrap">
+        <div class="bb-section-top"><p class="bb-kicker">BADEBA Supplies</p><span class="bb-rule" aria-hidden="true"></span><span class="bb-index">CLARIDAD EN CADA DETALLE</span></div>
+        <div class="bb-layout">
+          <div>
+            <h2 class="bb-title" id="benefits-title">Pedido directo<br>Entrega discreta</h2>
+            <p class="bb-intro">Selecciona tus productos en nuestro catálogo, haz tu pedido directamente por WhatsApp y recíbelo hasta la puerta de tu domicilio de forma segura, rápida y 100% discreta.</p>
+            <a class="bb-cta" href="#faq">Ordenar por WhatsApp <span aria-hidden="true">↗</span></a>
+            <div class="bb-brand-panel">
+              <img src="assets/brand/badeba-supplies/cannabis-skull.jpeg" alt="Emblema de BADEBA SUPPLIES">
+              <div><strong>BADEBA SUPPLIES</strong><p>Skull Collection<br>Una identidad que se reconoce.</p></div>
+              <span class="bb-seal" aria-hidden="true">↗</span>
+            </div>
+          </div>
+          <div class="bb-cards">
+            <article class="bb-card"><div class="bb-card-top"><svg class="bb-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h4"/></svg><span class="bb-number">01 / DETALLES</span></div><h3>Discrecion</h3><p>Seleccione sus articulos.</p></article>
+            <article class="bb-card"><div class="bb-card-top"><svg class="bb-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m4 18 5-5 4 4 3-3 5 5"/></svg><span class="bb-number">02 / </span></div><h3>Bahia</h3><p>Productos de calidad.</p></article>
+            <article class="bb-card"><div class="bb-card-top"><svg class="bb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></svg><span class="bb-number">03 / FUENTES</span></div><h3>Pedidos</h3><p>Una vez el tengas tu pedido solicitado en whatsapp,espera la confrimacion del repartidor.</p></article>
+            <article class="bb-card"><div class="bb-card-top"><svg class="bb-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 1-8 8H5l-3 3v-11a9 9 0 0 1 18 0Z"/><path d="M8 10h8M8 14h5"/></svg><span class="bb-number">04 / AYUDA</span></div><h3>Entrega</h3><p>Recibe tus articulos y disfruta.</p></article>
+          </div>
+        </div>
+        <div class="bb-bottom"><span class="bb-dot" aria-hidden="true"></span><span>WAKE N BAKE.</span></div>
       </div>
     </section>
 
@@ -1154,6 +1229,15 @@
       });
     });
 
+    // Recalcula las respuestas abiertas cuando cambia el ajuste del texto.
+    function resizeOpenFaqPanels() {
+      document.querySelectorAll('.faq-panel.is-open').forEach(panel => {
+        panel.style.maxHeight = `${panel.scrollHeight}px`;
+      });
+    }
+    window.addEventListener('resize', resizeOpenFaqPanels, { passive: true });
+    if (document.fonts) document.fonts.ready.then(resizeOpenFaqPanels);
+
     const chatToggle = document.querySelector('#chat-toggle');
     const chatPanel = document.querySelector('#chat-panel');
     const chatClose = document.querySelector('#chat-close');
@@ -1199,6 +1283,33 @@
     chatClose.addEventListener('click', () => setChat(false));
     chatForm.addEventListener('submit', event => { event.preventDefault(); sendChat(chatInput.value); });
     document.querySelectorAll('.quick-reply').forEach(button => button.addEventListener('click', () => sendChat(button.dataset.message)));
+  </script>
+  <script>
+    (() => {
+      const title = document.querySelector('.hero-title-3d');
+      if (!title) return;
+      const surface = title.closest('h1');
+      const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+      const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+      const reset = () => {
+        title.style.removeProperty('--title-rx');
+        title.style.removeProperty('--title-ry');
+      };
+      surface.addEventListener('pointermove', event => {
+        if (reducedMotion.matches || !finePointer.matches || event.pointerType === 'touch') return;
+        const bounds = surface.getBoundingClientRect();
+        if (!bounds.width || !bounds.height) return;
+        const x = Math.max(-.5, Math.min(.5, (event.clientX - bounds.left) / bounds.width - .5));
+        const y = Math.max(-.5, Math.min(.5, (event.clientY - bounds.top) / bounds.height - .5));
+        title.style.setProperty('--title-rx', `${-y * 12}deg`);
+        title.style.setProperty('--title-ry', `${x * 16}deg`);
+      });
+      surface.addEventListener('pointerleave', reset);
+      surface.addEventListener('pointercancel', reset);
+      window.addEventListener('blur', reset);
+      reducedMotion.addEventListener('change', reset);
+      finePointer.addEventListener('change', reset);
+    })();
   </script>
 </body>
 </html>
