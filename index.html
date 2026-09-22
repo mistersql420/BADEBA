@@ -334,9 +334,11 @@
 
   <div class="video-stage" aria-hidden="true">
     <video class="loop-layer is-active" autoplay muted loop playsinline preload="auto" poster="assets/images/indoor-hemp.png">
+      <source src="assets/video/badeba-fondo-8s-mobile.mp4" type="video/mp4" media="(max-width: 768px)">
       <source src="assets/video/badeba-fondo-8s.mp4" type="video/mp4">
     </video>
     <video class="loop-layer" muted loop playsinline preload="auto">
+      <source src="assets/video/badeba-fondo-8s-mobile.mp4" type="video/mp4" media="(max-width: 768px)">
       <source src="assets/video/badeba-fondo-8s.mp4" type="video/mp4">
     </video>
   </div>
@@ -751,8 +753,21 @@
       });
 
       document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) loopLayers[activeIndex].play().catch(() => {});
+        if (!document.hidden && heroVisible) loopLayers[activeIndex].play().catch(() => {});
       });
+
+      let heroVisible = true;
+      const heroSection = document.querySelector('#inicio');
+      if (heroSection && 'IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => {
+          heroVisible = entry.isIntersecting;
+          if (heroVisible) {
+            if (!document.hidden) loopLayers[activeIndex].play().catch(() => {});
+          } else {
+            loopLayers.forEach(video => video.pause());
+          }
+        }, { threshold: 0 }).observe(heroSection);
+      }
     }
 
     initSeamlessBackground();
